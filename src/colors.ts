@@ -4,4 +4,5 @@ export const colors ={
     textSecondary: "#a8a9ab",
     mainPrimary: "#8fb5e4",
     mainSecondary: "#f04040",
+    check: "#669ee2"
 }
