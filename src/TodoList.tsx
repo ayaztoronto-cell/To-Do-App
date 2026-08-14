@@ -11,6 +11,7 @@ export default function TodoList(props: any) {
   return (
     <Box
       sx={{
+        mt:"0.5rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -31,6 +32,8 @@ export default function TodoList(props: any) {
           >
             <Checkbox
               size="large"
+              checked={task.checked}
+              onChange={() => props.checked(index)}
               icon={
                 <RadioButtonUncheckedIcon sx={{ color: colors.mainPrimary }} />
               }
@@ -39,29 +42,29 @@ export default function TodoList(props: any) {
             <Typography
               sx={{
                 color: colors.textPrimary,
-                width: "48%",
+                width: "50%",
                 fontFamily: "Inter",
                 fontWeight: "300",
-                fontSize: "1.1rem",
+                fontSize: "1rem",
               }}
             >
               {task.item}
             </Typography>
             <IconButton
-              sx={{ width: "6%" }}
+              sx={{ width: "10%" }}
               onClick={() => props.removeTask(index)}
             >
-              <DeleteIcon sx={{ color: colors.textSecondary }} />
+              <DeleteIcon sx={{ color: colors.textSecondary }} /> 
             </IconButton>
           </Box>
           <Box
             sx={{
               mt: "0.2rem",
               height: "0px",
-              width: "60%",
+              width: "66%",
               borderTop: "1px solid #69696a",
             }}
-          ></Box>{" "}
+          ></Box>
         </>
       ))}
     </Box>

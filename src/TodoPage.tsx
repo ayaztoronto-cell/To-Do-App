@@ -19,19 +19,45 @@ function TodoPage() {
       checked: false,
     },
   ];
-  const [list, setList] = useState(tasks)
+  const [list, setList] = useState(tasks);
 
-  function removeTask(index:number){
-    const newlist = list.splice(index-1, 1)
-    setList(newlist)
+  function removeTask(index: number) {
+    const lesslist = list.toSpliced(index, 1);
+    setList(lesslist);
+  }
+  function addTask(task: string) {
+    if (task.trim() !== "") {
+      let newId = (list[list.length - 1]?.id ?? 0) + 1;
+      const moreList: any = [...list];
+      moreList.push({ id: newId, item: task, checked: false });
+      setList(moreList);
+    } else {
+      null;
+    }
+  }
+  function checked(index:number){
+    const checkList: any = [...list]
+    checkList[index].checked = !checkList[index].checked
+    setList(checkList);
+    console.log(list)
+  }
+  function clearDone(){
+    const doneList: any = [...list]
+    doneList.map((task:any) => task.checked = false)
+    setList(doneList)
+  }
+  function clearAll(){
+    let clearedList: any =[...list]
+    clearedList = []
+    setList(clearedList)
   }
 
   return (
     <div className="App">
       <Header />
-      <TodoInput tasks={list} />
-      <TodoList tasks={list} removeTask={removeTask}/>
-      <TodoActions />
+      <TodoInput tasks={list} addTask={addTask} />
+      <TodoList tasks={list} removeTask={removeTask} checked={checked}/>
+      <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll}/>
     </div>
   );
 }

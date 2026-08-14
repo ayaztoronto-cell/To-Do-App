@@ -123,7 +123,7 @@ export default function Header() {
       </Typography>
       <Box
         sx={{
-          mt:"2rem", height:"0px",width: "70%", borderTop: "1.5px solid #69696a"}}>
+          mt:"2rem", height:"0px",width: "75%", borderTop: "1.5px solid #69696a"}}>
       </Box>
     </div>
   );
