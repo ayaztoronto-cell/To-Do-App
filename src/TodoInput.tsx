@@ -15,6 +15,7 @@ export default function TodoInput(props: any) {
       setEmpty(false);
     }
   }
+  
   return (
     <Box className="todoinput">
       <Box
@@ -23,7 +24,7 @@ export default function TodoInput(props: any) {
           flexDirection: "row",
           gap: "0.5rem",
           justifyContent: "center",
-          width: "100%",
+          width: "65%",
           mb: "6px",
         }}
       >
@@ -37,9 +38,16 @@ export default function TodoInput(props: any) {
               setEmpty(false);
             }
           }}
+          onKeyDown={(e: any) => {
+            if (e.key === "Enter") {
+              props.addTask(task);
+              setTask("");
+              checkEmpty(task);
+            }
+          }}
           sx={{
             fontFamily: "Inter",
-            width: "51.5%",
+            width: "90%",
 
             "& .MuiOutlinedInput-root": {
               backgroundColor: "#2b2e37",
@@ -69,11 +77,13 @@ export default function TodoInput(props: any) {
               color: colors.textSecondary,
               fontSize: "0.9rem",
             },
+            
           }}
         />
         <Button
           variant="contained"
           sx={{
+            width: "10%",
             textTransform: "none",
             backgroundColor: colors.mainPrimary,
             color: "colors.textPrimary",
@@ -90,6 +100,7 @@ export default function TodoInput(props: any) {
             setTask("");
             checkEmpty(task);
           }}
+          
         >
           Add
         </Button>

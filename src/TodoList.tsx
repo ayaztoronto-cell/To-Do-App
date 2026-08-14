@@ -26,7 +26,7 @@ export default function TodoList(props: any) {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              width: "100%",
+              width: "70%",
               justifyContent: "center",
             }}
           >
@@ -42,7 +42,7 @@ export default function TodoList(props: any) {
             <Typography
               sx={{
                 color: colors.textPrimary,
-                width: "50%",
+                width: "80%",
                 fontFamily: "Inter",
                 fontWeight: "300",
                 fontSize: "1rem",
@@ -61,7 +61,7 @@ export default function TodoList(props: any) {
             sx={{
               mt: "0.2rem",
               height: "0px",
-              width: "66%",
+              width: "65%",
               borderTop: "1px solid #69696a",
             }}
           ></Box>
