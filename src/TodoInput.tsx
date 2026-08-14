@@ -1,21 +1,25 @@
-import type { ToDoRowTypes } from "./todoTypes.ts";
+import type { ToDoInputTypes } from "./todoTypes.ts";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import { colors } from "./colors";
-import type { ToDoListTypes } from "./todoTypes.ts";
 import React, { useState } from "react";
 
-export default function TodoInput(props: any) {
-  const [task, setTask] = useState("");
+export default function TodoInput(props: ToDoInputTypes) {
+  const [task, setTask] = useState<string>("");
   const [empty, setEmpty] = useState<boolean>(false);
 
-  function checkEmpty(task: string) {
+  function checkEmpty(task: string): void {
     if (task.trim() === "") {
       setEmpty(true);
     } else {
       setEmpty(false);
     }
   }
-  
+  function handleAdd() {
+    props.addTask(task);
+    setTask("");
+    checkEmpty(task);
+  }
+
   return (
     <Box className="todoinput">
       <Box
@@ -40,9 +44,7 @@ export default function TodoInput(props: any) {
           }}
           onKeyDown={(e: any) => {
             if (e.key === "Enter") {
-              props.addTask(task);
-              setTask("");
-              checkEmpty(task);
+              handleAdd();
             }
           }}
           sx={{
@@ -77,7 +79,6 @@ export default function TodoInput(props: any) {
               color: colors.textSecondary,
               fontSize: "0.9rem",
             },
-            
           }}
         />
         <Button
@@ -96,11 +97,8 @@ export default function TodoInput(props: any) {
             },
           }}
           onClick={() => {
-            props.addTask(task);
-            setTask("");
-            checkEmpty(task);
+            handleAdd()
           }}
-          
         >
           Add
         </Button>

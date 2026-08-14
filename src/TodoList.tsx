@@ -6,12 +6,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Checkbox, Box, Typography, IconButton } from "@mui/material";
 import { colors } from "./colors.ts";
 
-export default function TodoList(props: any) {
-  console.log(props.tasks);
+export default function TodoList(props: ToDoListTypes) {
   return (
     <Box
       sx={{
-        mt:"0.5rem",
+        mt: "0.5rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -19,9 +18,10 @@ export default function TodoList(props: any) {
         justifyContent: "center",
       }}
     >
-      {props.tasks.map((task: string, index: number) => (
+      {props.tasks.map((task, index: number) => (
         <>
           <Box
+            key={task.id}
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -33,28 +33,43 @@ export default function TodoList(props: any) {
             <Checkbox
               size="large"
               checked={task.checked}
-              onChange={() => props.checked(index)}
+              onChange={() => props.checked(task.id)}
               icon={
                 <RadioButtonUncheckedIcon sx={{ color: colors.mainPrimary }} />
               }
               checkedIcon={<CheckCircleIcon sx={{ color: colors.check }} />}
             />
-            <Typography
-              sx={{
-                color: colors.textPrimary,
-                width: "80%",
-                fontFamily: "Inter",
-                fontWeight: "300",
-                fontSize: "1rem",
-              }}
-            >
-              {task.item}
-            </Typography>
+            {task.checked ? (
+              <Typography
+                sx={{
+                  color: colors.textSecondary,
+                  width: "80%",
+                  fontFamily: "Inter",
+                  fontWeight: "300",
+                  fontSize: "1rem",
+                  textDecoration: "line-through",
+                }}
+              >
+                {task.item}
+              </Typography>
+            ) : (
+              <Typography
+                sx={{
+                  color: colors.textPrimary,
+                  width: "80%",
+                  fontFamily: "Inter",
+                  fontWeight: "300",
+                  fontSize: "1rem",
+                }}
+              >
+                {task.item}
+              </Typography>
+            )}
             <IconButton
               sx={{ width: "10%" }}
               onClick={() => props.removeTask(index)}
             >
-              <DeleteIcon sx={{ color: colors.textSecondary }} /> 
+              <DeleteIcon sx={{ color: colors.textSecondary }} />
             </IconButton>
           </Box>
           <Box

@@ -1,10 +1,10 @@
-import type { ToDoActions } from "./todoTypes";
+import type { ToDoActionsTypes } from "./todoTypes";
 import { Button, Box, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import { colors } from "./colors.ts";
 
-export default function TodoActions(props: any) {
-  const done = props.tasks.filter((task: any) => task.checked === true);
+export default function TodoActions(props: ToDoActionsTypes) {
+  const done = props.tasks.filter((task) => task.checked === true);
   const score = `${done.length} of ${props.tasks.length} done`;
   let percent: number = (done.length / props.tasks.length) * 100;
   return (
@@ -41,7 +41,7 @@ export default function TodoActions(props: any) {
       <Box sx={{ width: "65%", mt: "0.7rem" }}>
         <LinearProgress
           variant="determinate"
-          value={percent}
+          value={props.tasks.length === 0 ? 0 : percent}
           aria-label="Export data"
           sx={{ borderRadius: "4px" }}
         />

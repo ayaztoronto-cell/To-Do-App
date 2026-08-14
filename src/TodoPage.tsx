@@ -4,22 +4,13 @@ import TodoInput from "./TodoInput";
 import TodoActions from "./TodoActions";
 import TodoList from "./TodoList";
 import "./App.css";
-import type { ToDoPageTasks } from "./todoTypes";
+import type { ToDoTask } from "./todoTypes";
 
 function TodoPage() {
-  const tasks: ToDoPageTasks[] = [
-    {
-      id: 1,
-      item: "Go to the gym",
-      checked: false,
-    },
-    {
-      id: 2,
-      item: "Finish todo app",
-      checked: false,
-    },
-  ];
-  const [list, setList] = useState(tasks);
+  const savedTasks =
+    JSON.parse(localStorage.getItem("savedTasks") ?? "null") ?? [];
+  const tasks: ToDoTask[] = savedTasks ?? [];
+  const [list, setList] = useState<ToDoTask[]>(tasks);
 
   function removeTask(index: number) {
     const lesslist = list.toSpliced(index, 1);
@@ -28,36 +19,42 @@ function TodoPage() {
   function addTask(task: string) {
     if (task.trim() !== "") {
       let newId = (list[list.length - 1]?.id ?? 0) + 1;
-      const moreList: any = [...list];
+      const moreList: ToDoTask[] = [...list];
       moreList.push({ id: newId, item: task, checked: false });
       setList(moreList);
     } else {
       null;
     }
   }
-  function checked(index:number){
-    const checkList: any = [...list]
-    checkList[index].checked = !checkList[index].checked
+  function checked(id: number) {
+    const checkList: ToDoTask[] = list.map((task) => {
+      if (task.id === id) {
+        return { ...task, checked: !task.checked };
+      }
+      return task;
+    });
     setList(checkList);
-    console.log(list)
   }
-  function clearDone(){
-    const doneList: any = [...list]
-    doneList.map((task:any) => task.checked = false)
-    setList(doneList)
+  function clearDone() {
+    const doneList: ToDoTask[] = [...list];
+    const notDoneList = doneList.filter((task) => task.checked === false);
+    console.log(doneList);
+    setList(notDoneList);
   }
-  function clearAll(){
-    let clearedList: any =[...list]
-    clearedList = []
-    setList(clearedList)
+  function clearAll() {
+    let clearedList: ToDoTask[] = [...list];
+    clearedList = [];
+    setList(clearedList);
   }
+
+  localStorage.setItem("savedTasks", JSON.stringify(list));
 
   return (
     <div className="App">
       <Header />
       <TodoInput tasks={list} addTask={addTask} />
-      <TodoList tasks={list} removeTask={removeTask} checked={checked}/>
-      <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll}/>
+      <TodoList tasks={list} removeTask={removeTask} checked={checked} />
+      <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll} />
     </div>
   );
 }
