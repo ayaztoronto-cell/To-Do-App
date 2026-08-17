@@ -18,10 +18,18 @@ export default function TodoList(props: ToDoListTypes) {
         justifyContent: "center",
       }}
     >
-      {props.tasks.map((task, index: number) => (
-        <>
+      {props.tasks.map((task) => (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            justifyContent: "center",
+          }}
+          key={task.id}
+        >
           <Box
-            key={task.id}
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -67,7 +75,7 @@ export default function TodoList(props: ToDoListTypes) {
             )}
             <IconButton
               sx={{ width: "10%" }}
-              onClick={() => props.removeTask(index)}
+              onClick={() => props.removeTask(task.id)}
             >
               <DeleteIcon sx={{ color: colors.textSecondary }} />
             </IconButton>
@@ -80,7 +88,7 @@ export default function TodoList(props: ToDoListTypes) {
               borderTop: "1px solid #69696a",
             }}
           ></Box>
-        </>
+        </Box>
       ))}
     </Box>
   );

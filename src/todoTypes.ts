@@ -9,8 +9,8 @@ export interface ToDoTask {
 export interface ToDoListTypes {
   
   tasks: ToDoTask[];
-  removeTask: (index: number) => void;
-  checked: (indes: number) => void;
+  removeTask: (id: number) => void;
+  checked: (id: number) => void;
 }
 
 export interface ToDoInputTypes {

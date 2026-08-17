@@ -12,20 +12,25 @@ function TodoPage() {
   const tasks: ToDoTask[] = savedTasks ?? [];
   const [list, setList] = useState<ToDoTask[]>(tasks);
 
-  function removeTask(index: number) {
-    const lesslist = list.toSpliced(index, 1);
-    setList(lesslist);
+  function removeTask(id: number) {
+    const lessList: ToDoTask[] = list.filter((task) => task.id !== id);
+
+    setList(lessList);
   }
+
+  
+  const topId = Math.max(0, ...list.map(task => task.id))
+
   function addTask(task: string) {
     if (task.trim() !== "") {
-      let newId = (list[list.length - 1]?.id ?? 0) + 1;
       const moreList: ToDoTask[] = [...list];
-      moreList.push({ id: newId, item: task, checked: false });
+      moreList.push({ id: topId+1, item: task, checked: false });
       setList(moreList);
     } else {
       null;
     }
   }
+
   function checked(id: number) {
     const checkList: ToDoTask[] = list.map((task) => {
       if (task.id === id) {
@@ -46,8 +51,9 @@ function TodoPage() {
     clearedList = [];
     setList(clearedList);
   }
-
-  localStorage.setItem("savedTasks", JSON.stringify(list));
+  useEffect(() => {
+    localStorage.setItem("savedTasks", JSON.stringify(list));
+  }, [list]);
 
   return (
     <div className="App">
