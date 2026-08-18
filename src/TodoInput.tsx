@@ -21,7 +21,8 @@ export default function TodoInput(props: ToDoInputTypes) {
   }
 
   return (
-    <Box className="todoinput">
+    <Box className="todoinput"
+    sx={{width: {xs: "100%", sm: "60%"},}}>
       <Box
         sx={{
           display: "flex",

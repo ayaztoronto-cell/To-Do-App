@@ -13,7 +13,7 @@ export default function TodoActions(props: ToDoActionsTypes) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "100%",
+        width: {xs: "100%", sm: "60%"},
         justifyContent: "center",
       }}
     >

@@ -5,6 +5,8 @@ import TodoActions from "./TodoActions";
 import TodoList from "./TodoList";
 import "./App.css";
 import type { ToDoTask } from "./todoTypes";
+import { DragDropProvider } from "@dnd-kit/react";
+import { isSortable } from "@dnd-kit/react/sortable";
 
 function TodoPage() {
   const savedTasks =
@@ -18,13 +20,12 @@ function TodoPage() {
     setList(lessList);
   }
 
-  
-  const topId = Math.max(0, ...list.map(task => task.id))
+  const topId = Math.max(0, ...list.map((task) => task.id));
 
   function addTask(task: string) {
     if (task.trim() !== "") {
       const moreList: ToDoTask[] = [...list];
-      moreList.push({ id: topId+1, item: task, checked: false });
+      moreList.push({ id: topId + 1, item: task, checked: false });
       setList(moreList);
     } else {
       null;
@@ -51,6 +52,31 @@ function TodoPage() {
     clearedList = [];
     setList(clearedList);
   }
+  function moveItemInPlace(
+    arr: ToDoTask[],
+    fromIndex: number,
+    toIndex: number,
+  ) {
+    // Remove the item from its current position
+    const [item] = arr.splice(fromIndex, 1);
+
+    // Insert the item into the new position
+    arr.splice(toIndex, 0, item);
+
+    return arr;
+  }
+
+  function rearrange(event) {
+    const rearranged = [...list];
+    const { source } = event.operation;
+    if (event.canceled) return;
+    if (isSortable(source)) {
+      if (source.initialIndex !== source.index)
+        moveItemInPlace(rearranged, source.initialIndex, source.index);
+      setList(rearranged);
+    }
+  }
+  console.log(list);
   useEffect(() => {
     localStorage.setItem("savedTasks", JSON.stringify(list));
   }, [list]);
@@ -59,7 +85,14 @@ function TodoPage() {
     <div className="App">
       <Header />
       <TodoInput tasks={list} addTask={addTask} />
-      <TodoList tasks={list} removeTask={removeTask} checked={checked} />
+      <DragDropProvider
+        onDragEnd={(event) => {
+          rearrange(event);
+        }}
+      >
+        <TodoList tasks={list} removeTask={removeTask} checked={checked} />
+      </DragDropProvider>
+
       <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll} />
     </div>
   );

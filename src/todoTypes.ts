@@ -24,3 +24,10 @@ export interface ToDoActionsTypes {
   clearDone: () => void;
   clearAll: () => void;
 }
+
+export interface SortableTodoTypes {
+  task: ToDoTask;
+  index: number;
+  removeTask: (id: number) => void;
+  checked: (id: number) => void;
+}
