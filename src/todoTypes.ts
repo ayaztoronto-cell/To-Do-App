@@ -7,8 +7,8 @@ export interface ToDoTask {
 
 
 export interface ToDoListTypes {
-  
   tasks: ToDoTask[];
+  editTask: (id: number, newText: string) => void;
   removeTask: (id: number) => void;
   checked: (id: number) => void;
 }
@@ -28,6 +28,7 @@ export interface ToDoActionsTypes {
 export interface SortableTodoTypes {
   task: ToDoTask;
   index: number;
+  editTask: (id: number, newText: string) => void;
   removeTask: (id: number) => void;
   checked: (id: number) => void;
 }

@@ -21,7 +21,7 @@ export default function TodoActions(props: ToDoActionsTypes) {
         sx={{
           mt: "1rem",
           height: "0px",
-          width: "75%",
+          width: {xs:"90%", sm:"75%"},
           borderTop: "1px solid #69696a",
         }}
       ></Box>

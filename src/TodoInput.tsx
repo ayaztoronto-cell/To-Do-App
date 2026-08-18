@@ -21,16 +21,17 @@ export default function TodoInput(props: ToDoInputTypes) {
   }
 
   return (
-    <Box className="todoinput"
-    sx={{width: {xs: "100%", sm: "60%"},}}>
+    <Box className="todoinput" sx={{ width: { xs: "100%", sm: "60%" } }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           gap: "0.5rem",
           justifyContent: "center",
-          width: "65%",
+          width: { xs: "78%", sm: "65%" },
           mb: "6px",
+
+         
         }}
       >
         <TextField
@@ -98,7 +99,7 @@ export default function TodoInput(props: ToDoInputTypes) {
             },
           }}
           onClick={() => {
-            handleAdd()
+            handleAdd();
           }}
         >
           Add

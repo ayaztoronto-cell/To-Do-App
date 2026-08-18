@@ -12,14 +12,17 @@ export default function TodoList(props: ToDoListTypes) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: {xs: "100%", sm: "60%"},
+        width: { xs: "90%", sm: "60%" },
         justifyContent: "center",
+
+        
       }}
     >
       {props.tasks.map((task, index) => (
         <SortableTodo
           key={task.id}
           task={task}
+          editTask={props.editTask}
           removeTask={props.removeTask}
           checked={props.checked}
           index={index}

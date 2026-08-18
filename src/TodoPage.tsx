@@ -31,7 +31,15 @@ function TodoPage() {
       null;
     }
   }
-
+  function editTask(id: number, newText: string) {
+    const editedList = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, item: newText };
+      }
+      return task;
+    });
+    setList(editedList);
+  }
   function checked(id: number) {
     const checkList: ToDoTask[] = list.map((task) => {
       if (task.id === id) {
@@ -90,7 +98,7 @@ function TodoPage() {
           rearrange(event);
         }}
       >
-        <TodoList tasks={list} removeTask={removeTask} checked={checked} />
+        <TodoList tasks={list} removeTask={removeTask} checked={checked} editTask = {editTask}/>
       </DragDropProvider>
 
       <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll} />
