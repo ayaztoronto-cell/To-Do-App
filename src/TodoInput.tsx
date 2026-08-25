@@ -20,6 +20,7 @@ export default function TodoInput(props: ToDoInputTypes) {
     checkEmpty(task);
   }
 
+
   return (
     <Box className="todoinput" sx={{ width: { xs: "100%", sm: "60%" } }}>
       <Box

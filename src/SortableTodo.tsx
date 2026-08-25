@@ -26,13 +26,16 @@ export default function SortableTodo(props: SortableTodoTypes) {
   const inputRef = useRef<HTMLInputElement>(null);
   function handleEdited() {
     props.editTask(props.task.id, draftText);
+    if (draftText.trim() === "") {
+      props.removeTask(props.task.id);
+    }
     setIsEditing(false);
   }
   useEffect(() => {
-  if (isEditing) {
-    inputRef.current?.focus();
-  }
-}, [isEditing]);
+    if (isEditing) {
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
 
   return (
     <Box
@@ -43,8 +46,6 @@ export default function SortableTodo(props: SortableTodoTypes) {
         alignItems: "center",
         width: { xs: "100%", sm: "65%" },
         justifyContent: "center",
-
-        
       }}
     >
       <Box
@@ -67,7 +68,6 @@ export default function SortableTodo(props: SortableTodoTypes) {
 
             width: { xs: "100%", sm: "100%", gap: "3px" },
             justifyContent: "center",
-            
           }}
         >
           {isEditing ? (
@@ -83,7 +83,7 @@ export default function SortableTodo(props: SortableTodoTypes) {
               <TextField
                 variant="outlined"
                 placeholder="Edit Task"
-                inputRef={inputRef}
+                autoFocus
                 value={draftText}
                 onChange={(e) => setDraftText(e.target.value)}
                 onKeyDown={(e) => {
@@ -95,6 +95,7 @@ export default function SortableTodo(props: SortableTodoTypes) {
                   fontFamily: "Inter",
                   width: { xs: "80%", sm: "90%" },
                   mr: "10px",
+                  mt: "3px",
 
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#2b2e37",
@@ -141,7 +142,6 @@ export default function SortableTodo(props: SortableTodoTypes) {
                 alignItems: "center",
                 width: { xs: "100%", sm: "100%", gap: "3px" },
                 justifyContent: "center",
-                
               }}
             >
               <Checkbox
@@ -156,32 +156,22 @@ export default function SortableTodo(props: SortableTodoTypes) {
                 }
                 checkedIcon={<CheckCircleIcon sx={{ color: colors.check }} />}
               />
-              {props.task.checked ? (
-                <Typography
-                  sx={{
-                    color: colors.textSecondary,
-                    width: { xs: "80%", sm: "90%" },
-                    fontFamily: "Inter",
-                    fontWeight: "300",
-                    fontSize: "1rem",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  {props.task.item}
-                </Typography>
-              ) : (
-                <Typography
-                  sx={{
-                    color: colors.textPrimary,
-                    width: { xs: "80%", sm: "90%" },
-                    fontFamily: "Inter",
-                    fontWeight: "300",
-                    fontSize: "1rem",
-                  }}
-                >
-                  {props.task.item}
-                </Typography>
-              )}
+
+              <Typography
+                sx={{
+                  color: props.task.checked
+                    ? colors.textSecondary
+                    : colors.textPrimary,
+                  width: { xs: "80%", sm: "90%" },
+                  fontFamily: "Inter",
+                  fontWeight: "300",
+                  fontSize: "1rem",
+                  textDecoration: props.task.checked ? "line-through" : "none",
+                }}
+              >
+                {props.task.item}
+              </Typography>
+
               <IconButton
                 sx={{ width: { xs: "7%", sm: "5%" } }}
                 onClick={() => setIsEditing(true)}
@@ -191,12 +181,12 @@ export default function SortableTodo(props: SortableTodoTypes) {
                 />
               </IconButton>
               <IconButton
-                sx={{ width: { xs: "7%", sm: "5%"} }}
+                sx={{ width: { xs: "7%", sm: "5%" } }}
                 onClick={() => props.removeTask(props.task.id)}
               >
                 <DeleteIcon sx={{ color: colors.textSecondary }} />
               </IconButton>
-              <Box sx={{ width: { xs: "10%", sm: "0%"},  }}></Box>
+              <Box sx={{ width: { xs: "10%", sm: "0%" } }}></Box>
             </Box>
           )}
         </Box>
@@ -205,7 +195,7 @@ export default function SortableTodo(props: SortableTodoTypes) {
         sx={{
           mt: "0.2rem",
           height: "0px",
-          width: {xs:"85%", sm:"100%"},
+          width: { xs: "85%", sm: "100%" },
           borderTop: "1px solid #69696a",
         }}
       ></Box>

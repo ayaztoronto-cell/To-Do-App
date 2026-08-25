@@ -5,14 +5,26 @@ import TodoActions from "./TodoActions";
 import TodoList from "./TodoList";
 import "./App.css";
 import type { ToDoTask } from "./todoTypes";
-import { DragDropProvider } from "@dnd-kit/react";
+import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 
 function TodoPage() {
-  const savedTasks =
-    JSON.parse(localStorage.getItem("savedTasks") ?? "null") ?? [];
-  const tasks: ToDoTask[] = savedTasks ?? [];
-  const [list, setList] = useState<ToDoTask[]>(tasks);
+  const [list, setList] = useState<ToDoTask[]>(() => {
+    const savedTasks: ToDoTask[] = JSON.parse(
+      localStorage.getItem("savedTasks") ?? "[]",
+    );
+
+    const savedDate = localStorage.getItem("date");
+
+    if (savedDate !== getTodayDate()) {
+      return savedTasks.map((task) => ({
+        ...task,
+        checked: false,
+      }));
+    }
+
+    return savedTasks;
+  });
 
   function removeTask(id: number) {
     const lessList: ToDoTask[] = list.filter((task) => task.id !== id);
@@ -32,7 +44,7 @@ function TodoPage() {
     }
   }
   function editTask(id: number, newText: string) {
-    const editedList = tasks.map((task) => {
+    const editedList = list.map((task) => {
       if (task.id === id) {
         return { ...task, item: newText };
       }
@@ -74,7 +86,7 @@ function TodoPage() {
     return arr;
   }
 
-  function rearrange(event) {
+  function rearrange(event: DragEndEvent) {
     const rearranged = [...list];
     const { source } = event.operation;
     if (event.canceled) return;
@@ -84,9 +96,15 @@ function TodoPage() {
       setList(rearranged);
     }
   }
-  console.log(list);
+  function getTodayDate() {
+    const today = new Date();
+
+    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+  }
   useEffect(() => {
+    
     localStorage.setItem("savedTasks", JSON.stringify(list));
+    localStorage.setItem("date", getTodayDate());
   }, [list]);
 
   return (
@@ -98,7 +116,12 @@ function TodoPage() {
           rearrange(event);
         }}
       >
-        <TodoList tasks={list} removeTask={removeTask} checked={checked} editTask = {editTask}/>
+        <TodoList
+          tasks={list}
+          removeTask={removeTask}
+          checked={checked}
+          editTask={editTask}
+        />
       </DragDropProvider>
 
       <TodoActions tasks={list} clearDone={clearDone} clearAll={clearAll} />
