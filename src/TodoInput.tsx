@@ -1,11 +1,12 @@
 import type { ToDoInputTypes } from "./todoTypes.ts";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import { colors } from "./colors";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export default function TodoInput(props: ToDoInputTypes) {
   const [task, setTask] = useState<string>("");
   const [empty, setEmpty] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function checkEmpty(task: string): void {
     if (task.trim() === "") {
@@ -43,6 +44,13 @@ export default function TodoInput(props: ToDoInputTypes) {
               if (e.target.value !== "") {
                 setEmpty(false);
               }
+            }}
+            inputRef={inputRef}
+            onFocus={() => {
+              inputRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
             }}
             sx={{
               fontFamily: "Inter",
