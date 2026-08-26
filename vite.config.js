@@ -14,6 +14,9 @@ export default defineConfig({
         short_name: "Tasks",
         description: "A simple daily task manager",
 
+        start_url: "/",
+        scope: "/",
+        
         theme_color: "#28282c",
         background_color: "#28282c",
 
