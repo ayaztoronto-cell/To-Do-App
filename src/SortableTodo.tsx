@@ -23,19 +23,15 @@ export default function SortableTodo(props: SortableTodoTypes) {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [draftText, setDraftText] = useState(props.task.item);
-  const inputRef = useRef<HTMLInputElement>(null);
+
   function handleEdited() {
-    props.editTask(props.task.id, draftText);
     if (draftText.trim() === "") {
       props.removeTask(props.task.id);
     }
+
+    props.editTask(props.task.id, draftText.trim());
     setIsEditing(false);
   }
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current?.focus();
-    }
-  }, [isEditing]);
 
   return (
     <Box
@@ -65,7 +61,6 @@ export default function SortableTodo(props: SortableTodoTypes) {
           sx={{
             display: "flex",
             flexDirection: "row",
-
             width: { xs: "100%", sm: "100%", gap: "3px" },
             justifyContent: "center",
           }}
@@ -148,7 +143,7 @@ export default function SortableTodo(props: SortableTodoTypes) {
                 size="large"
                 checked={props.task.checked}
                 onChange={() => props.checked(props.task.id)}
-                sx={{ width: { xs: "10%", sm: "7%" } }}
+                sx={{ width: { xs: "10%", sm: "10%" } }}
                 icon={
                   <RadioButtonUncheckedIcon
                     sx={{ color: colors.mainPrimary }}
@@ -181,7 +176,7 @@ export default function SortableTodo(props: SortableTodoTypes) {
                 />
               </IconButton>
               <IconButton
-                sx={{ width: { xs: "7%", sm: "5%" } }}
+                sx={{ width: { xs: "7%", sm: "7%" } }}
                 onClick={() => props.removeTask(props.task.id)}
               >
                 <DeleteIcon sx={{ color: colors.textSecondary }} />

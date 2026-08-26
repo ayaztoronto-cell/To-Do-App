@@ -62,10 +62,9 @@ function TodoPage() {
     setList(checkList);
   }
   function clearDone() {
-    const doneList: ToDoTask[] = [...list];
-    const notDoneList = doneList.filter((task) => task.checked === false);
+    const doneList = list.filter((task) => task.checked === false);
     console.log(doneList);
-    setList(notDoneList);
+    setList(doneList);
   }
   function clearAll() {
     let clearedList: ToDoTask[] = [...list];
@@ -102,10 +101,12 @@ function TodoPage() {
     return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   }
   useEffect(() => {
-    
     localStorage.setItem("savedTasks", JSON.stringify(list));
-    localStorage.setItem("date", getTodayDate());
   }, [list]);
+
+  useEffect(() => {
+    localStorage.setItem("date", getTodayDate());
+  }, []);
 
   return (
     <div className="App">
