@@ -14,8 +14,6 @@ export default function TodoList(props: ToDoListTypes) {
         alignItems: "center",
         width: { xs: "90%", sm: "60%" },
         justifyContent: "center",
-
-        
       }}
     >
       {props.tasks.map((task, index) => (

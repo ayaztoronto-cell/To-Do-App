@@ -13,7 +13,7 @@ export default function TodoActions(props: ToDoActionsTypes) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: {xs: "100%", sm: "60%"},
+        width: { xs: "100%", sm: "60%" },
         justifyContent: "center",
       }}
     >
@@ -21,7 +21,7 @@ export default function TodoActions(props: ToDoActionsTypes) {
         sx={{
           mt: "1rem",
           height: "0px",
-          width: {xs:"90%", sm:"75%"},
+          width: { xs: "90%", sm: "75%" },
           borderTop: "1px solid #69696a",
         }}
       ></Box>
@@ -68,9 +68,9 @@ export default function TodoActions(props: ToDoActionsTypes) {
             fontSize: "0.8rem",
             color: colors.textSecondary,
             borderColor: colors.textSecondary,
-            "&:hover":{
-                backgroundColor:"#343438"
-            }
+            "&:hover": {
+              backgroundColor: "#343438",
+            },
           }}
         >
           Clear done
@@ -87,9 +87,9 @@ export default function TodoActions(props: ToDoActionsTypes) {
             fontSize: "0.8rem",
             color: colors.mainSecondary,
             borderColor: colors.mainSecondary,
-            "&:hover":{
-                backgroundColor:"#383434"
-            }
+            "&:hover": {
+              backgroundColor: "#383434",
+            },
           }}
         >
           Clear all

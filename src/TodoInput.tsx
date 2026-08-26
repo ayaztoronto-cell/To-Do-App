@@ -47,10 +47,12 @@ export default function TodoInput(props: ToDoInputTypes) {
             }}
             inputRef={inputRef}
             onFocus={() => {
-              inputRef.current?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
+              setTimeout(() => {
+                inputRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+              }, 300);
             }}
             sx={{
               fontFamily: "Inter",

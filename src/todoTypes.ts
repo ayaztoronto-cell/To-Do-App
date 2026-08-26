@@ -4,8 +4,6 @@ export interface ToDoTask {
   checked: boolean;
 }
 
-
-
 export interface ToDoListTypes {
   tasks: ToDoTask[];
   editTask: (id: number, newText: string) => void;
@@ -17,7 +15,6 @@ export interface ToDoInputTypes {
   tasks: ToDoTask[];
   addTask: (task: string) => void;
 }
-
 
 export interface ToDoActionsTypes {
   tasks: ToDoTask[];

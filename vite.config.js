@@ -16,7 +16,7 @@ export default defineConfig({
 
         start_url: "/",
         scope: "/",
-        
+
         theme_color: "#28282c",
         background_color: "#28282c",
 
@@ -38,6 +38,6 @@ export default defineConfig({
     }),
   ],
   server: {
-    allowedHosts: ["return-perfect-kids-shift.trycloudflare.com"],
+    allowedHosts: ["paragraph-cleaning-ruling-choir.trycloudflare.com"],
   },
 });

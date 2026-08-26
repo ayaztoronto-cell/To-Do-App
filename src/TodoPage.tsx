@@ -63,7 +63,6 @@ function TodoPage() {
   }
   function clearDone() {
     const doneList = list.filter((task) => task.checked === false);
-    console.log(doneList);
     setList(doneList);
   }
   function clearAll() {

@@ -63,68 +63,78 @@ export default function Header() {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          transform: 'rotate(-4deg)',
-          
+          transform: "rotate(-4deg)",
         }}
       >
         <Box
           sx={{
-            mb:"4px",
+            mb: "4px",
             height: "0",
             width: "85%",
             borderTop: "1px solid #8fb5e4",
-            
           }}
         ></Box>
-          <Typography
-            sx={{
-              fontFamily: "sans-serif",
-              textTransform: "uppercase",
-              fontSize: "0.8rem",
-              letterSpacing: "1px",
-              
-              lineHeight: "0.9",
-            }}
-          >
-            {shortenedDays[todayInfo.dayOfWeek]}
-          </Typography>
-          <Typography
-            sx={{
-              color: colors.textPrimary,
-              fontSize: "1.5rem",
-              fontFamily: "Georgia",
-              lineHeight: "0.9",
-            }}
-          >
-            {todayInfo.date}
-          </Typography>
-          <Box
+        <Typography
           sx={{
-            mt:"6px",
+            fontFamily: "sans-serif",
+            textTransform: "uppercase",
+            fontSize: "0.8rem",
+            letterSpacing: "1px",
+
+            lineHeight: "0.9",
+          }}
+        >
+          {shortenedDays[todayInfo.dayOfWeek]}
+        </Typography>
+        <Typography
+          sx={{
+            color: colors.textPrimary,
+            fontSize: "1.5rem",
+            fontFamily: "Georgia",
+            lineHeight: "0.9",
+          }}
+        >
+          {todayInfo.date}
+        </Typography>
+        <Box
+          sx={{
+            mt: "6px",
             height: "0",
             width: "85%",
             borderTop: "1px solid #8fb5e4",
-            
           }}
-        >
-        </Box>
+        ></Box>
       </Box>
       <Typography
         variant="h4"
-        sx={{ mt:2,color: colors.textPrimary, fontFamily: "Georgia", fontSize:"1.8rem" }}
+        sx={{
+          mt: 2,
+          color: colors.textPrimary,
+          fontFamily: "Georgia",
+          fontSize: "1.8rem",
+        }}
       >
         Today's tasks
       </Typography>
       <Typography
         variant="body2"
-        sx={{ mt:0.5, color: colors.textSecondary, fontFamily: "Inter", fontSize:"0.8rem" }}
+        sx={{
+          mt: 0.5,
+          color: colors.textSecondary,
+          fontFamily: "Inter",
+          fontSize: "0.8rem",
+        }}
       >
         {dateHeading}
       </Typography>
       <Box
         sx={{
-          mt:"2rem", height:"0px",width: {xs: "90%", sm: "45%"}, borderTop: "1.5px solid #69696a"}}>
-      </Box>
+          mt: "2rem",
+          height: "0px",
+          width: { xs: "90%", sm: "45%" },
+          borderTop: "1.5px solid #69696a",
+        }}
+      ></Box>
     </div>
   );
 }
