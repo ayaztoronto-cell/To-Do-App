@@ -4,11 +4,17 @@ import TodoInput from "./TodoInput";
 import TodoActions from "./TodoActions";
 import TodoList from "./TodoList";
 import "./App.css";
-import type { ToDoTask } from "./todoTypes";
+import type { ToDoTask, ReminderTypes } from "./todoTypes";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 
 function TodoPage() {
+  const [reminderSettings, setReminderSettings] = useState<ReminderTypes>({
+    enabled: false,
+    time: "19:00",
+    reminderType: "unfinished",
+  });
+
   const [list, setList] = useState<ToDoTask[]>(() => {
     const savedTasks: ToDoTask[] = JSON.parse(
       localStorage.getItem("savedTasks") ?? "[]",
@@ -26,6 +32,14 @@ function TodoPage() {
     return savedTasks;
   });
 
+  function reminderSet(enabled: boolean, time: string, reminderType: string) {
+    setReminderSettings({
+      enabled: enabled,
+      time: time,
+      reminderType: reminderType,
+    });
+  }
+
   function removeTask(id: number) {
     const lessList: ToDoTask[] = list.filter((task) => task.id !== id);
 
@@ -36,8 +50,10 @@ function TodoPage() {
 
   function addTask(task: string) {
     if (task.trim() !== "") {
-      const moreList: ToDoTask[] = [...list];
-      moreList.push({ id: topId + 1, item: task, checked: false });
+      const moreList: ToDoTask[] = [
+        { id: topId + 1, item: task, checked: false },
+        ...list,
+      ];
       setList(moreList);
     } else {
       null;
@@ -109,7 +125,7 @@ function TodoPage() {
 
   return (
     <div className="App">
-      <Header />
+      <Header reminderSet={reminderSet} />
       <TodoInput tasks={list} addTask={addTask} />
       <DragDropProvider
         onDragEnd={(event) => {

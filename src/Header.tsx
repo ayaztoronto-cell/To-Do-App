@@ -1,7 +1,10 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, IconButton } from "@mui/material";
 import { colors } from "./colors";
+import ReminderSettings from "./ReminderSettings"
+import type { ReminderFunc } from "./todoTypes";
 
-export default function Header() {
+
+export default function Header(props: ReminderFunc) {
   interface DateTypes {
     month: number;
     date: number;
@@ -52,6 +55,9 @@ export default function Header() {
 
   return (
     <div className="header">
+      
+      
+      <ReminderSettings reminderSet={props.reminderSet}/>
       <Box
         sx={{
           color: colors.mainPrimary,

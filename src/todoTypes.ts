@@ -29,3 +29,11 @@ export interface SortableTodoTypes {
   removeTask: (id: number) => void;
   checked: (id: number) => void;
 }
+export interface ReminderTypes {
+  enabled: boolean;
+  time: string;
+  reminderType: string;
+}
+export interface ReminderFunc {
+  reminderSet: (enabled: boolean, time: string, reminderType: string) => void;
+}
