@@ -9,11 +9,22 @@ import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 
 function TodoPage() {
-  const [reminderSettings, setReminderSettings] = useState<ReminderTypes>({
-    enabled: false,
-    time: "19:00",
-    reminderType: "unfinished",
-  });
+  const [reminderSettings, setReminderSettings] = useState<ReminderTypes>(
+    () => {
+      const savedSettings = localStorage.getItem("reminderSettings");
+
+      if (savedSettings) {
+        return JSON.parse(savedSettings);
+      }
+
+      return {
+        enabled: false,
+        time: "19:00",
+        reminderType: "unfinished",
+      };
+    },
+  );
+  console.log(reminderSettings)
 
   const [list, setList] = useState<ToDoTask[]>(() => {
     const savedTasks: ToDoTask[] = JSON.parse(
@@ -122,10 +133,13 @@ function TodoPage() {
   useEffect(() => {
     localStorage.setItem("date", getTodayDate());
   }, []);
+  useEffect(() => {
+    localStorage.setItem("reminderSettings", JSON.stringify(reminderSettings));
+  }, [reminderSettings]);
 
   return (
     <div className="App">
-      <Header reminderSet={reminderSet} />
+      <Header reminderSettings={reminderSettings} reminderSet={reminderSet} />
       <TodoInput tasks={list} addTask={addTask} />
       <DragDropProvider
         onDragEnd={(event) => {

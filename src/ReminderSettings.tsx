@@ -1,4 +1,4 @@
-import type { ReminderFunc } from "./todoTypes";
+import type { ReminderSettingsProps } from "./todoTypes";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
@@ -23,11 +23,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 
-export default function ReminderSettings(props: ReminderFunc) {
+export default function ReminderSettings(props: ReminderSettingsProps) {
   const [open, setOpen] = useState(true);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [reminderTime, setReminderTime] = useState("19:00");
-  const [reminderType, setReminderType] = useState("unfinished");
+  const [notificationsEnabled, setNotificationsEnabled] = useState(
+    (props.reminderSettings.enabled && Notification.permission === "granted") ?? false
+  );
+  const [reminderTime, setReminderTime] = useState(
+    props.reminderSettings.time ?? "19:00",
+  );
+  const [reminderType, setReminderType] = useState(
+    props.reminderSettings.reminderType ?? "unfinished",
+  );
 
   const handleClose = () => setOpen(false);
 

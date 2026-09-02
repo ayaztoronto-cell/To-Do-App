@@ -34,6 +34,11 @@ export interface ReminderTypes {
   time: string;
   reminderType: string;
 }
-export interface ReminderFunc {
-  reminderSet: (enabled: boolean, time: string, reminderType: string) => void;
+export interface ReminderSettingsProps {
+  reminderSettings: ReminderTypes;
+  reminderSet: (
+    enabled: boolean,
+    time: string,
+    reminderType: string,
+  ) => void;
 }

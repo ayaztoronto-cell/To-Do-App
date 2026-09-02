@@ -20,6 +20,9 @@ export default function TodoInput(props: ToDoInputTypes) {
     props.addTask(task);
     setTask("");
     checkEmpty(task);
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
   }
 
   return (

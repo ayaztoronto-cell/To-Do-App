@@ -1,10 +1,10 @@
 import { Typography, Box, IconButton } from "@mui/material";
 import { colors } from "./colors";
 import ReminderSettings from "./ReminderSettings"
-import type { ReminderFunc } from "./todoTypes";
+import type { ReminderSettingsProps  } from "./todoTypes";
 
 
-export default function Header(props: ReminderFunc) {
+export default function Header(props: ReminderSettingsProps ) {
   interface DateTypes {
     month: number;
     date: number;
@@ -52,12 +52,12 @@ export default function Header(props: ReminderFunc) {
   ];
 
   const dateHeading: string = `${days[todayInfo.dayOfWeek]},      ${months[todayInfo.month]} ${todayInfo.date}`;
-
+  console.log(props.reminderSettings)
   return (
     <div className="header">
       
       
-      <ReminderSettings reminderSet={props.reminderSet}/>
+      <ReminderSettings reminderSet={props.reminderSet} reminderSettings={props.reminderSettings}/>
       <Box
         sx={{
           color: colors.mainPrimary,
